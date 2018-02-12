@@ -1,32 +1,26 @@
-"""Instagram Feed
+"""Reddit Feed
 
 """
 
-import os
 import sys
-import shutil
 
 import praw
-import requests
-from sqlalchemy.orm.exc import NoResultFound
 
 sys.path.append("../..")
 from app import app
 from app.models.media import Media
-
-INSTAGRAM_CLIENT_ID = os.environ.get('INSTAGRAM_CLIENT_ID')
-INSTAGRAM_CLIENT_SECRET = os.environ.get("INSTAGRAM_CLIENT_SECRET")
-INSTAGRAM_TOKEN = os.environ.get("INSTAGRAM_TOKEN")
-INSTAGRAM_USER_ID = '374169053'
 
 
 class RedditFeed(object):
 
     def __init__(self):
         self.api = praw.Reddit(
-            client_id='my client id',
-            client_secret='my client secret',
-            user_agent='my user agent')
+            client_id='KghxWVF-O4l6hA',
+            username='politeauthority',
+            password='BNjepuTQ4n!@',
+            client_secret=None,
+            user_agent='RaspberryFrame')
+        self.api.read_only = True
 
     def run(self):
         print 'Running Reddit'
@@ -34,4 +28,5 @@ class RedditFeed(object):
 
     def get_user_feed(self):
         print self.api
-
+        for post in self.api.subreddit('all').top('hour'):
+            print post
