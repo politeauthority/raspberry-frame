@@ -20,6 +20,7 @@ else:
 db = SQLAlchemy(app)
 
 # Models
+from models.media import Media
 
 # Helpers
 # from app.helpers import misc_time
@@ -55,19 +56,9 @@ def register_blueprints(app):
     app.register_blueprint(ctrl_home)
 
 
-def register_api(app):
-    """
-    Enables the API routes and configruation.
-
-    """
-    manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
-    manager.create_api(Company, methods=['GET'])
-    manager.create_api(Quote, methods=['GET'], max_results_per_page=365)
-
 DebugToolbarExtension(app)
 register_logging(app)
 register_blueprints(app)
-register_api(app)
 
 
 @app.errorhandler(404)
@@ -76,3 +67,4 @@ def page_not_found(e):
 
 
 app.logger.info('Started App!')
+db.create_all()

@@ -1,5 +1,12 @@
+import os
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///data/raspberry-frame.db'
+# SQLALCHEMY_DATABASE_URI = 'sqlite:///data/raspberry-frame.db'
+SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (
+    os.environ.get('RF_MYSQL_USER'),
+    os.environ.get('RF_MYSQL_PASS'),
+    os.environ.get('RF_MYSQL_HOST'),
+    os.environ.get('RF_MYSQL_PORT', 3306),
+    os.environ.get('RF_MYSQL_NAME'))
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DEBUG = False
 TESTING = False
