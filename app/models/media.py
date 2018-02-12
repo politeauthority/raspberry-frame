@@ -1,7 +1,7 @@
-"""Media - MODELS
+"""Media - MODEL
 
 """
-from sqlalchemy import Column, String, Text, DateTime, Integer
+from sqlalchemy import Column, String, Text, DateTime, Integer, UniqueConstraint
 
 from app.models.base import Base
 
@@ -10,13 +10,20 @@ class Media(Base):
 
     __tablename__ = 'media'
 
-    url = Column(Text(), nullable=False)
-    file = Column(Text(), nullable=False)
+    url = Column(String(500), nullable=False)
+    file = Column(String(200))
+    description = Column(Text())
     content_type = Column(String(50))
     domain = Column(String(50))
     author = Column(String(200))
     media_created = Column(DateTime)
-    file_size = Column(Integer, primary_key=True)
+    file_size = Column(Integer)
+    score = Column(Integer)
+    downloaded = Column(Integer)
+
+    __table_args__ = (
+        UniqueConstraint('url', 'file', name='uix_1'),
+    )
 
     def __init__(self, _id=None):
         if _id:
@@ -34,6 +41,8 @@ class Media(Base):
         self.ts_updated = obj.ts_updated
         self.url = obj.url
         self.file = obj.file
+        self.description = obj.description
+        self.content_type = obj.content_type
         self.domain = obj.domain
         self.author = obj.author
         self.media_created = obj.media_created

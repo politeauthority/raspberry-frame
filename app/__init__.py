@@ -9,6 +9,8 @@ from logging.handlers import TimedRotatingFileHandler
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 import flask_restless
 
 
@@ -29,6 +31,7 @@ from models.media import Media
 
 # Controllers
 from controllers.home import home as ctrl_home
+from controllers.content import content as ctrl_content
 
 
 def register_logging(app):
@@ -54,11 +57,26 @@ def register_blueprints(app):
 
     """
     app.register_blueprint(ctrl_home)
+    app.register_blueprint(ctrl_content)
 
+
+def register_admin(app):
+    """
+    Starts the admin utility
+
+    """
+    app = Admin(
+        app,
+        url="/%s" % 'admin',
+        name='SCS',
+        template_mode='bootstrap3')
+
+    app.add_view(ModelView(Media, db.session))
 
 DebugToolbarExtension(app)
 register_logging(app)
 register_blueprints(app)
+register_admin(app)
 
 
 @app.errorhandler(404)

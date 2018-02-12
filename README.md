@@ -1,4 +1,4 @@
-# Raspberry-Fame
+# Raspberry-Frame
 Raspberry Pi picture frame system.
 ```
 docker build -t raspberry-frame --no-cache .
