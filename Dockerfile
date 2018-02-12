@@ -8,7 +8,6 @@ RUN apt-get install -y --no-install-recommends \
     python-mysqldb \
     emacs
 
-
 RUN mkdir /data/ && \
     cd /opt/ && \
     git clone https://github.com/politeauthority/raspberry-frame.git &&\
@@ -18,7 +17,6 @@ RUN mkdir /data/ && \
     git config --global alias.ci commit && \
     git config --global alias.st status && \
     git config --global alias.unstage 'reset HEAD --' && \
-
     pip install -r /opt/raspberry-frame/requirements.txt 
 
 ENV RASPBERRY_FRAME_BASE_LOGGING_DIR='/data/logs'
