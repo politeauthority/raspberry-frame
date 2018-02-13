@@ -16,8 +16,7 @@ RUN mkdir /data/ && \
     git config --global alias.br branch && \
     git config --global alias.ci commit && \
     git config --global alias.st status && \
-    git config --global alias.unstage 'reset HEAD --' && \
-    pip install -r /opt/raspberry-frame/requirements.txt 
+    git config --global alias.unstage 'reset HEAD --'
 
 ENV RASPBERRY_FRAME_BASE_LOGGING_DIR='/data/logs'
 ENV RASPBERRY_FRAME_BUILD="dev"
