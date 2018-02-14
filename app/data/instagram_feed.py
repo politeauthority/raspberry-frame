@@ -15,18 +15,25 @@ from sqlalchemy.orm.exc import NoResultFound
 sys.path.append("../..")
 from app import app
 from app.models.media import Media
+from app.models.option import Option
 
 INSTAGRAM_CLIENT_ID = os.environ.get('INSTAGRAM_CLIENT_ID')
 INSTAGRAM_CLIENT_SECRET = os.environ.get("INSTAGRAM_CLIENT_SECRET")
-INSTAGRAM_TOKEN = os.environ.get("INSTAGRAM_TOKEN")
 INSTAGRAM_USER_ID = '374169053'
 
 
 class InstagramFeed(object):
 
     def __init__(self):
+        self.connect()
+
+    def connect(self):
+        """
+        Gets the Option table item for INSTAGRAM_TOKEN and logs in.
+        """
+        self.INSTAGRAM_TOKEN = Option.query.filter(Option.name == 'INSTAGRAM_TOKEN').one()
         self.api = InstagramAPI(
-            access_token=INSTAGRAM_TOKEN,
+            access_token=self.INSTAGRAM_TOKEN,
             client_id=INSTAGRAM_CLIENT_ID,
             client_secret=INSTAGRAM_CLIENT_SECRET)
 

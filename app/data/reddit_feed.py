@@ -7,22 +7,22 @@ import sys
 import praw
 
 sys.path.append("../..")
-from app import app
-from app.models.media import Media
+from app.models.option import Option
 
 
 class RedditFeed(object):
 
     def __init__(self):
         self.api = praw.Reddit(
-            client_id='KghxWVF-O4l6hA',
-            username='politeauthority',
-            password='BNjepuTQ4n!@',
-            client_secret=None,
+            client_id=Option.get('REDDIT_CLIENT_ID'),
+            username=Option.get('REDDIT_USER'),
+            password=Option.get('REDDIT_PASSWORD'),
+            client_secret=Option.get('REDDIT_CLIENT_SECRET'),
             user_agent='RaspberryFrame')
         self.api.read_only = True
 
     def run(self):
+        exit()
         print 'Running Reddit'
         self.get_user_feed()
 

@@ -23,6 +23,7 @@ db = SQLAlchemy(app)
 
 # Models
 from models.media import Media
+from models.option import Option
 
 # Helpers
 # from app.helpers import misc_time
@@ -68,10 +69,11 @@ def register_admin(app):
     app = Admin(
         app,
         url="/%s" % 'admin',
-        name='SCS',
+        name='RasberryFrame',
         template_mode='bootstrap3')
 
     app.add_view(ModelView(Media, db.session))
+    app.add_view(ModelView(Option, db.session))
 
 DebugToolbarExtension(app)
 register_logging(app)
