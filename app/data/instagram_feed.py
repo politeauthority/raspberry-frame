@@ -31,7 +31,7 @@ class InstagramFeed(object):
         """
         Gets the Option table item for INSTAGRAM_TOKEN and logs in.
         """
-        self.INSTAGRAM_TOKEN = Option.query.filter(Option.name == 'INSTAGRAM_TOKEN').one()
+        self.INSTAGRAM_TOKEN = Option.get('INSTAGRAM_TOKEN').value
         self.api = InstagramAPI(
             access_token=self.INSTAGRAM_TOKEN,
             client_id=INSTAGRAM_CLIENT_ID,

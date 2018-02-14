@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN mkdir /data/ && \
     cd /opt/ && \
     git clone https://github.com/politeauthority/raspberry-frame.git && \
+    pip install -r /opt/raspberry-frame/requirements.txt && \
     git config --global alias.co checkout && \
     git config --global alias.br branch && \
     git config --global alias.ci commit && \

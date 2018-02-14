@@ -6,24 +6,10 @@ from app import db
 
 from app.models.option import Option
 
-
-def create_default_options():
-    if not Option.get('INSTAGRAM_TOKEN'):
-        o = Option()
-        o.name = 'INSTAGRAM_TOKEN'
-        o.save()
-
-    if not Option.get('INSTAGRAM_TOKEN_2'):
-        o = Option()
-        o.name = 'INSTAGRAM_TOKEN_2'
-        o.save()
-
-    if not Option.get('INSTAGRAM_TOKEN_3'):
-        o = Option()
-        o.name = 'INSTAGRAM_TOKEN_3'
-        o.save()
+DEFAULT_OPTIONS = ['INSTAGRAM_CLIENT_ID' 'INSTAGRAM_CLIENT_SECRET', 'INSTAGRAM_TOKEN']
 
 if __name__ == '__main__':
     app.logger.info('Runing Installer')
+    Option.set_defaults(DEFAULT_OPTIONS)
     db.create_all()
-    create_default_options()
+    print 'done'

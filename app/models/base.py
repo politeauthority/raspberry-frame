@@ -2,7 +2,9 @@
 
 """
 from sqlalchemy import Column, Integer, DateTime, func
+from sqlalchemy.exc import IntegrityError
 
+import app
 from app import db
 
 
@@ -21,7 +23,10 @@ class Base(db.Model):
 
     def save(self):
         if not self.id:
-            db.session.add(self)
+            try:
+                db.session.add(self)
+            except IntegrityError, e:
+                app.log.warning(e)
         db.session.commit()
 
 # End File: raspberry-frame/app/models/base.py
