@@ -33,6 +33,7 @@ from models.option import Option
 # Controllers
 from controllers.home import home as ctrl_home
 from controllers.content import content as ctrl_content
+from controllers.instagram import instagram as ctrl_instagram
 
 
 def register_logging(app):
@@ -59,6 +60,7 @@ def register_blueprints(app):
     """
     app.register_blueprint(ctrl_home)
     app.register_blueprint(ctrl_content)
+    app.register_blueprint(ctrl_instagram)
 
 
 def register_admin(app):
@@ -84,6 +86,11 @@ register_admin(app)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('errors/404.html'), 404
+
+
+@app.errorhandler(500)
+def page_died(e):
+    return render_template('errors/500.html'), 404
 
 
 app.logger.info('Started App!')

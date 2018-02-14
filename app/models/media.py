@@ -32,9 +32,6 @@ class Media(Base):
             if c:
                 self.__build_obj__(c)
 
-    def __repr__(self):
-        return '<Media %r, %r>' % (self.id, self.url)
-
     def __build_obj__(self, obj):
         self.id = int(obj.id)
         self.ts_created = obj.data
@@ -46,3 +43,4 @@ class Media(Base):
         self.domain = obj.domain
         self.author = obj.author
         self.media_created = obj.media_created
+        self.l_url = "content/%s.%s" % (self.file, self.content_type)

@@ -6,10 +6,10 @@ from app import db
 
 from app.models.option import Option
 
-DEFAULT_OPTIONS = ['INSTAGRAM_CLIENT_ID' 'INSTAGRAM_CLIENT_SECRET', 'INSTAGRAM_TOKEN']
+DEFAULT_OPTIONS = ['INSTAGRAM_CLIENT_ID', 'INSTAGRAM_CLIENT_SECRET', 'INSTAGRAM_TOKEN']
 
 if __name__ == '__main__':
-    app.logger.info('Runing Installer')
+    app.logger.info('Runing installer')
     Option.set_defaults(DEFAULT_OPTIONS)
     db.create_all()
-    print 'done'
+    app.logger.info('Finished installing')

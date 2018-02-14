@@ -19,9 +19,6 @@ class Option(Base):
         UniqueConstraint('name', name='uix_1'),
     )
 
-    def __repr__(self):
-        return '<%s %r, %r>' % (self.__class__.__name__, self.name, self.id)
-
     def __init__(self, _id=None):
         """
         Loads and sets an model object if an _id is passed in.
@@ -93,11 +90,10 @@ class Option(Base):
         :param option_default_value: The default for the option.
         :type option_default_value: str
         """
-        opt = Option.get(option_name)
-        print opt
         if not Option.get(option_name):
             o = Option()
             o.name = option_name
+            o.value = option_default_value
             o.save()
 
 # End File: raspberry-frame/app/models/option.py

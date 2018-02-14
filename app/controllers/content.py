@@ -3,28 +3,53 @@
 """
 import os
 
-from flask import Blueprint, send_from_directory
+from flask import Blueprint, Response, redirect
 
-# from app.models.media import Media
 
 content = Blueprint('Content', __name__, url_prefix='/content')
+
+EXT_MAP = {
+    'jpg': 'image/jpg',
+    'mp4': 'video/type'
+}
 
 
 @content.route('/<path:path>')
 def fetch(path):
     """
-    fetch
+    Fetches a file from the local system if a match can be found, and it fits an allowed Extension Map
 
+    :param path: Any GET url paramater send through the /content URI
+    :type path: str
     """
-    # if '../' in path:
-    #     return str(), 403
-    file_path = os.path.join(
-        'images',
-        path)
-    # return str(file_path)
-    # if not os.path.exists(file_path):
-    #     return str(file_path)
+    content_type = None
+    if '.' in path:
+        ext = path[path.rfind('.') + 1:]
+        if ext in EXT_MAP:
+            content_type = EXT_MAP[ext]
 
-    return send_from_directory('data', file_path)
+    if not content_type:
+        redirect('/error')
+
+    return Response(get_file(path), mimetype=content_type)
+
+
+def get_file(filename):
+    """
+    Gets the file from the file system or returns and IO Error if nothing can be found.
+
+    :param filename: Local file path from the RF image dir
+    :type filename: str
+    :returns: The opened file object or the error.
+    :rtype: Open File
+    """
+    try:
+        src = os.path.join(
+            os.environ.get('RASPBERRY_FRAME_APP_DATA_PATH'),
+            'images',
+            filename)
+        return open(src).read()
+    except IOError as exc:
+        return str(exc)
 
 # End File: raspberry-frame/app/controllers/content.py

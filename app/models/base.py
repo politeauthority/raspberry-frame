@@ -16,10 +16,8 @@ class Base(db.Model):
     ts_created = Column(DateTime, default=func.current_timestamp())
     ts_updated = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
-    def __init__(self, _id=None):
-        if _id:
-            self.id = _id
-            self.__build_obj__()
+    def __repr__(self):
+        return '<%s %r, %r>' % (self.__class__.__name__, self.id)
 
     def save(self):
         if not self.id:
